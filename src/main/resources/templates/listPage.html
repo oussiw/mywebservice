@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>ThymeleafDemo</title>
+</head>
+<body>
+    <div class="container">
+        <h2>List of customers</h2>
+        <hr>
+        <a th:href="@{/customers/add}"
+           class="btn btn-primary btn-sm mb-3">
+            Add customer
+        </a>
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr th:each="tempCustomer : ${listCustomers}">
+                    <th:url var="updateLink" value="/customers/showAddForm">
+                        <th:param name="customerId" value="${tempCustomer.id}"/>
+                    </th:url>
+                    <td th:text="${tempCustomer.firstName}"/>
+                    <td th:text="${tempCustomer.lastName}"/>
+                    <td th:text="${tempCustomer.email}"/>
+                    <td align="center">
+                        <a th:href="'/customers/update/'+${tempCustomer.id}">Update</a>
+                        |
+                        <a th:href="'/customers/delete/'+${tempCustomer.id}">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
